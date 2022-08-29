@@ -4,14 +4,13 @@ const express =  require('express');
 
 class App {
     iniciar() {
-        //1 Passo: configurar o express
         //this - fazer referencia dentro do escopo da propria classe 
         this.#configurarExpress();
         //2 Passo: carregar controllers
         //3 Passo: Iniciar o servidor
     }
-
-    //configurando express
+    
+    //1 Passo: configurar o express
     //método privado porque será usado somente dentro do escopo da classe
     #configurarExpress = () => {
         //criando instancia do express para gerenciar o servidor 
@@ -20,6 +19,17 @@ class App {
         //registrando os middlewares para fazer a conversão das requisições da API
         this.express.use(express.urlencoded({extended: true}));
         this.express.use(express.json());
+
+        // registrando o middleware de log para exibir no terminal toda vez que
+        //houver uma nova requisição
+        this.express.use((req, res, next) => {
+            console.log(
+                `requisição recebida!,
+                URl: ${req.url},
+                Method_HTTP: ${req.method}
+            `);
+            next();
+        })
     }
 }
 
