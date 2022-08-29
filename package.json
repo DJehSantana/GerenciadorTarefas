@@ -1,0 +1,25 @@
+{
+  "name": "gerenciadortarefas",
+  "version": "1.0.0",
+  "description": "Projeto de gerenciador de tarefas. Projeto desenvolvido com objetivo de exercitar conhecimentos de Front-End (HTML, CSS e JS) e back-end (Node, API e BD)",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DJehSantana/GerenciadorTarefas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DJehSantana/GerenciadorTarefas/issues"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
