@@ -15,6 +15,12 @@ class HttpController {
         this.express = express;
         this.configurarRotas(appConstantes.BASE_API_URL);
     }
+
+    //método abstrato que deverá ser implementado nas classes filhas
+    configurarRotas(baseUrl){
+        throw new Error ('Método configurarRotas é obrigatório!')
+
+    }
 }
 
 module.exports = HttpController;
