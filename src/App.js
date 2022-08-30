@@ -1,7 +1,11 @@
 //Importando o express
 const express =  require('express');
+//importando dependencia e arquivo swagger
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger/swagger.json');
 //importando classe Login Controller
 const LoginController = require('./controllers/LoginController');
+const appConstantes = require('./enums/appConstantes');
 // Classe principal onde ficará nossa aplicação
 
 class App {
@@ -26,6 +30,13 @@ class App {
         //registrando os middlewares para fazer a conversão das requisições da API
         this.express.use(express.urlencoded({extended: true}));
         this.express.use(express.json());
+
+        //configura o swagger da aplicação para servir a documentação
+        this.express.use(
+            `${appConstantes.BASE_API_URL}/docs`,
+            swaggerUi.serve,
+            swaggerUi.setup(swaggerFile)
+        )
 
         // registrando o middleware de log para exibir no terminal toda vez que
         //houver uma nova requisição

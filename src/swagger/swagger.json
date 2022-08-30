@@ -1,0 +1,60 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "API Gerenciador de Tarefas"
+    },
+    "basePath": "/api",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "sumary": "Faz a autenticação do usuário e devolve um token de login",
+                "response": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/LoginSucesso"
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/LoginInvalido"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "LoginSucesso":{
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "example": ""
+                }
+            }
+        },
+        "LoginInvalido": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "number",
+                    "example": "400"
+                },
+                "erro": {
+                    "type": "string",
+                    "example": "Parâmetros de entrada inválidos"
+                }
+            }
+        }
+    }
+
+
+
+}
