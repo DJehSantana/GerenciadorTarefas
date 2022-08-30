@@ -51,7 +51,7 @@ class App {
     #iniciarServidor = () => {
         //tenta pegar a porta a partir da variável de ambiente EXPRESS_PORT
         //caso esta não esteja definida, usa a porta padrão 3001
-        const porta = process.env.EXPRESS_PORT || 3001;
+        const porta = process.env.EXPRESS_PORT || 3002;
         //listen - recebe como parâmetro a porta e um callback 
         this.express.listen(porta, () => {
             //mensagem de sucesso caso o express consiga se conectar a porta
