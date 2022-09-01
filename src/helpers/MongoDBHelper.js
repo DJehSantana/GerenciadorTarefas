@@ -16,6 +16,9 @@ class MongoDbHelper{
         mongoose.connection.on('connected', () => console.log('conectado ao BD'));
         //se falhar a conexão vai mostrar a msg de erro
         mongoose.connection.on('error', () => console.error('Erro ao conectar com o BD', e.message));
+
+        //retornando resultado da conexao
+        return conexao;
         
     }
 
