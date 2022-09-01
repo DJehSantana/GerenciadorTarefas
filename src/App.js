@@ -6,8 +6,10 @@ const swaggerFile = require('./swagger/swagger.json');
 //importando classe Login Controller
 const LoginController = require('./controllers/LoginController');
 const appConstantes = require('./enums/appConstantes');
-// Classe principal onde ficará nossa aplicação
+//importando helper de conexão
+const MongoDbHelper = require('./helpers/MongoDbHelper');
 
+// Classe principal onde ficará nossa aplicação
 class App {
     //propriedade privada da classe App
     #controllers;
@@ -15,9 +17,11 @@ class App {
     iniciar() {
         //this - fazer referencia dentro do escopo da propria classe 
         this.#configurarExpress();
-        //2 Passo: carregar controllers
+        //2 Passo: realizar conexão como BD
+        this.#configurarBD();
+        //3 Passo: carregar controllers
         this.#carregarControllers();
-        //3 Passo: Iniciar o servidor
+        //4 Passo: Iniciar o servidor
         this.#iniciarServidor();
     }
     
@@ -48,6 +52,12 @@ class App {
             `);
             next();
         })
+    }
+
+    //método responsável por configurar o Bd
+    #configurarBD = () => {
+        //chamando o método estático da classe helper
+        MongoDbHelper.conectar();
     }
 
     //método responsável por carregar todos os controllers da aplicação

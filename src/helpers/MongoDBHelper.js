@@ -24,4 +24,4 @@ class MongoDbHelper{
 
 }
 
-module.exports = MongoDBHelper;
+module.exports = MongoDbHelper;
