@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 //importando ferramenta Schema
 const Schema =  mongoose.Schema;
+//importando classe do md5
+const md5 = require('md5');
 
 //mensagem de erro para campos required
 const erroRequired = '*Campo obrigatório!';
@@ -25,3 +27,20 @@ const UsuarioSchema = new Schema ({
         required: [true, erroRequired]
     }
 })
+
+//.pre - adicionando um evento antes de determinada ação
+//save - neste caso antes de salvar o usuário no banco de dados
+UsuarioSchema.pre('save', function (next) {
+    //não usar o arrow function pq não foi criada uma classe, então não conseguiriamos usar o this
+    //sobrescreve a senha do usuário pela senha criptografada pelo md5
+    this.senha = md5(this.senha);
+    next();
+
+})
+
+//importando o Schema para um modelo do mongoose
+//usuarios será o nome da collection que será criada no MongoDB
+const Usuario = mongoose.model('usuarios');
+
+module.exports = Usuario;
+
