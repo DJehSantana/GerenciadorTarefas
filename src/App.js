@@ -9,6 +9,9 @@ const appConstantes = require('./enums/appConstantes');
 //importando helper de conexão
 const MongoDbHelper = require('./helpers/MongoDbHelper');
 
+//importando o logger
+const logger = require('./middlewares/logger');
+
 // Classe principal onde ficará nossa aplicação
 class App {
     //propriedade privada da classe App
