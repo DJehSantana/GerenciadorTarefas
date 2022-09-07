@@ -11,6 +11,7 @@ const MongoDbHelper = require('./helpers/MongoDbHelper');
 
 //importando o logger
 const logger = require('./middlewares/logger');
+const jwt = require('./middlewares/jwt');
 
 // Classe principal onde ficará nossa aplicação
 class App {
@@ -33,10 +34,16 @@ class App {
     #configurarExpress = () => {
         //criando instancia do express para gerenciar o servidor 
         this.express = express();
+        
+        // registrando o middleware de log para exibir no terminal toda vez que houver uma nova requisição
+        this.express.use(logger);
 
         //registrando os middlewares para fazer a conversão das requisições da API
         this.express.use(express.urlencoded({extended: true}));
         this.express.use(express.json());
+
+        //registra o middleware do Jwt para fazer validação do acesso as rotas das requisições recebidas
+        this.express.use(jwt);
 
         //configura o swagger da aplicação para servir a documentação
         this.express.use(
@@ -45,9 +52,6 @@ class App {
             swaggerUi.setup(swaggerFile)
         )
 
-        // registrando o middleware de log para exibir no terminal toda vez que houver uma nova requisição
-        
-        this.express.use(logger);
     }
 
     //método responsável por configurar o Bd
