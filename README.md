@@ -8,6 +8,7 @@
 
  1. Clonar o repositório
  1. Instalar as dependências com o gerenciador de pacotes `npm`
+ 1. Atualizar variáveis de ambiente no arquivo `.env`
  1. Rodar o servidor executando o comando `npm start`
  
  ### Status: Em desenvolvimento
