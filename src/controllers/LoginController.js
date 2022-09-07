@@ -17,6 +17,7 @@ class LoginController extends HttpController{
         const body = req.body;
         //verifica se body está vazio ou se usuário não passou login ou senha
         if (!body || !body.login || !body.senha) {
+            req.logger.info('requisição de login inválida');
             //retorna resposta de erro
             return res.status(400).json({
                 status: 400,
@@ -28,6 +29,8 @@ class LoginController extends HttpController{
         const service = new LoginService();
         //método logar espera um login e uma senha como parametros
         const resultado = service.logar(body.login, body.senha);
+        //o método stringify da classe JSON transforma o objeto json em uma string
+        req.logger.info('requisição de login realizada com sucesso', `resultado = ${JSON.stringify(resultado)}`);
         //se a autenticação do login tiver sucesso, retorna o conteúdo do res
         res.json(resultado);
     }

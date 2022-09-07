@@ -45,16 +45,9 @@ class App {
             swaggerUi.setup(swaggerFile)
         )
 
-        // registrando o middleware de log para exibir no terminal toda vez que
-        //houver uma nova requisição
-        this.express.use((req, res, next) => {
-            console.log(
-                `requisição recebida!,
-                URl: ${req.url},
-                Method_HTTP: ${req.method}
-            `);
-            next();
-        })
+        // registrando o middleware de log para exibir no terminal toda vez que houver uma nova requisição
+        
+        this.express.use(logger);
     }
 
     //método responsável por configurar o Bd
