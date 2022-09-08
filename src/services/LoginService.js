@@ -7,7 +7,7 @@ class LoginService{
     logar (login, senha) {
         const usuario = {
             id: 1,
-            nome: 'usuarioFake',
+            nome: 'usuarioTeste',
             email: login           
         }
         //gera o token de acesso usando o JWT e atribui a constante token
