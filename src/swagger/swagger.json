@@ -15,32 +15,132 @@
         "/login": {
             "post": {
                 "sumary": "Faz a autenticação do usuário e devolve um token de login",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref":"#/definitions/LoginRequest"
+                        }
+                    }
+                ],
                 "response": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/LoginSucesso"
+                            "$ref": "#/definitions/LoginResponse200"
                         }
                     },
                     "400": {
                         "schema": {
-                            "$ref": "#/definitions/LoginInvalido"
+                            "$ref": "#/definitions/Response400"
                         }
                     }
                 }
             }
-        }
+        },
+        
+        "/usuario": {
+            "post": {
+                "sumary": "Faz o cadastro do usuário no sistema",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref":"#/definitions/UsuarioCadastroRequest"
+                        }
+                    }
+                ],
+                "response": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/UsuarioCadastroResponse200"
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/Response400"
+                        }
+                    }
+                }
+            }
+        }    
     },
     "definitions": {
-        "LoginSucesso":{
+        "LoginRequest":{
             "type": "object",
             "properties": {
-                "token": {
+                "login": {
                     "type": "string",
-                    "example": ""
+                    "example": "email@email.com"
+                },
+                "senha": {
+                    "type": "string",
+                    "example": "senha345"
                 }
             }
         },
-        "LoginInvalido": {
+        "LoginResponse200":{
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": "1"
+                },
+                "nome": {
+                    "type": "string",
+                    "example": "Fulano da Silva"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "email@email.com"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "fd8si7yhfdg8hfod9ihjgdghd99"
+                }
+
+            }
+        },        
+        "UsuarioCadastroRequest":{
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string",
+                    "example": "Fulano da Silva"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "email@email.com"
+                },
+                "senha": {
+                    "type": "string",
+                    "example": "senha345"
+                }
+
+            }
+        },
+        "UsuarioCadastroResponse200":{
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string",
+                    "example": "Fulano da Silva"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "email@email.com"
+                },
+                "senha": {
+                    "type": "string",
+                    "example": "senha345"
+                }
+
+            }
+        },
+        "Response400": {
             "type": "object",
             "properties": {
                 "status": {
