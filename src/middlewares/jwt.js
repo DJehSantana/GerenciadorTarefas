@@ -1,12 +1,31 @@
 const jwt = require('jsonwebtoken');
 
 //define a lista de rotas publicas da aplicação
-const rotasPublicas  = {
+const rotasPublicas  = [
+    {
+        url: '/api/login',
+        metodo: 'POST'
+    },
+    //rota do swagger
+    {
+        url: '/api/docs',
+        metodo: 'GET'
+    }
 
-}
+];
 
 module.exports = (req, res, next) => {
     req.logger.info('Verificando permissão de acesso a', `rota: ${req.url}`);
+
+    //caso seja uma rota pública não precisa de autorização
+    //método find, caso a rota e o metodo fizerem parte do array de rotas publicas, será atribuido a const
+    const rotaPublica = rotasPublicas.find(rota => rota.url === req.url && rota.metodo === req.method.toUpperCase());
+
+    if (rotaPublica) {
+        // chama o método next pra continuar a chamada dos próximos middlewares,
+        // o return bloqueia o fluxo do programa para que não siga para a autorização
+       return next(); 
+    }
 
     //headers usado para acessar o header do BD
     const authorization = req.headers.authorization;
@@ -42,7 +61,7 @@ module.exports = (req, res, next) => {
             id: decoded._id
         }
 
-        //atribui a propriedade usuario da requisição, quem é o usuário autenticado
+        //atribui a propriedade usuario da requisição quem é o usuário autenticado
         req.usuario = usuario;
 
     });
