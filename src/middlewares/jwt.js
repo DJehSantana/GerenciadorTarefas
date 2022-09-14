@@ -19,12 +19,14 @@ module.exports = (req, res, next) => {
 
     //caso seja uma rota pública não precisa de autorização
     //método find, caso a rota e o metodo fizerem parte do array de rotas publicas, será atribuido a const
-    const rotaPublica = rotasPublicas.find(rota => rota.url === req.url && rota.metodo === req.method.toUpperCase());
+    const rotaPublica = rotasPublicas.find(rota => 
+        rota.url === req.url && rota.metodo === req.method.toUpperCase());
 
     if (rotaPublica) {
         // chama o método next pra continuar a chamada dos próximos middlewares,
         // o return bloqueia o fluxo do programa para que não siga para a autorização
-       return next(); 
+        req.logger.info('rota publica, requisição liberada');
+        return next(); 
     }
 
     //headers usado para acessar o header do BD
@@ -32,6 +34,7 @@ module.exports = (req, res, next) => {
 
     //envia uma mensagem de erro 401 se o header de autorização não for enviado
     if (!authorization) {
+        req.logger.info('requisicao negada, sem header de autorização');
         res.status(401).json({
             status: 401,
             erro: 'acesso negado, você precisa enviar o header authorization'
