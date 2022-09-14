@@ -10,6 +10,10 @@ const rotasPublicas  = [
     {
         url: '/api/docs',
         metodo: 'GET'
+    },
+    {
+        url: '/api/usuario',
+        metodo: 'POST'
     }
 
 ];

@@ -9,7 +9,11 @@ class UsuarioController extends HttpController{
     }
 
     cadastrar(req, res) {
+        //receber dados do usuário para cadastro
+        const dadosUsuario = req.body;
         //garantir o recebimento da requisição no método cadastrar 
+        req.logger.info('Usuário cadastrado com sucesso!');
+        res.json(dadosUsuario);
     }
 
 
