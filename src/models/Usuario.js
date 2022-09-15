@@ -1,6 +1,6 @@
 //importando biblioteca mongoose
 const mongoose = require('mongoose');
-//importando ferramenta Schema
+//importando classe Schema do mongoose
 const Schema =  mongoose.Schema;
 //importando classe do md5
 const md5 = require('md5');
@@ -38,9 +38,9 @@ UsuarioSchema.pre('save', function (next) {
 
 })
 
-//importando o Schema para um modelo do mongoose
+//faz o link do schema com a collection 'usuarios'
 //usuarios será o nome da collection que será criada no MongoDB
-const Usuario = mongoose.model('usuarios');
+const Usuario = mongoose.model('usuarios', UsuarioSchema);
 
 module.exports = Usuario;
 

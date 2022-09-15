@@ -1,8 +1,8 @@
-const RepositorioUsuario = require('../RepositorioUsuario');
+const UsuarioRepository = require('../UsuarioRepository');
 
 class UsuarioRepMongoDB {
 
 }
 
-//ao exportar vai chamar a arrow function do RepositorioUsuario que vai verificar a implementação do método cadastrar
-module.exports = RepositorioUsuario(UsuarioRepMongoDB);
+//ao exportar vai chamar a arrow function do UsuarioRepository que vai verificar a implementação do método cadastrar
+module.exports = UsuarioRepository(UsuarioRepMongoDB);

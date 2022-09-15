@@ -8,12 +8,16 @@ const rotasPublicas  = [
     },
     //rota do swagger
     {
-        url: '/api/docs',
+        url: '/api/docs/',
         metodo: 'GET'
     },
     {
         url: '/api/usuario',
         metodo: 'POST'
+    },
+    {
+        url: '/favicon.ico',
+        metodo: 'GET'
     }
 
 ];
