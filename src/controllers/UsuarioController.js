@@ -1,4 +1,5 @@
-const HttpController = require("./HttpController");
+const HttpController = require('./HttpController');
+const UsuarioService = require('../services/UsuarioService');
 
 class UsuarioController extends HttpController{
     //implementando método da classe mãe
