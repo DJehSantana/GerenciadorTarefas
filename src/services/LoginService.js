@@ -13,7 +13,7 @@ class LoginService{
         let usuario = null;
         //buscando login e senha no BD através do método filtrar
         const usuarios = await UsuarioRepository.filtrar(filtro);
-        //caso o login e senha estejam corretos, retorna um objeto com as informações do usuário
+        //caso o login e senha estejam corretos atribui o usuario a constante
         if (usuarios && usuarios.length) {
             usuario = usuarios[0] 
             //caso login e senha não sejam válidos retorna um valor null para o método logar           

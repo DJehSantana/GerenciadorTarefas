@@ -2,13 +2,17 @@
 //qualquer implementação de repositório de usuario vai precisar ter os métodos definidos aqui
 
 module.exports = (Implementacao) => {
-    //se a classe final não tiver um método cadastrar, vai lançar um erro
+    //se a classe final não tiver um método cadastrar ou filtrar, vai lançar um erro
     if (!Implementacao.cadastrar) {
-        throw new Error(`A classe ${Implementacao} não implementou o método cadastrar!`)
+        throw new Error(`A classe ${Implementacao} não implementou o método cadastrar`)
     }
 
     if (!Implementacao.filtrar) {
         throw new Error(`A classe ${Implementacao} não implementou o método filtrar`)
+    }
+
+    if (!Implementacao.filtrarPorId) {
+        throw new Error(`A classe ${Implementacao} não implementou o método filtrarPorID`)
     }
 
     return Implementacao;

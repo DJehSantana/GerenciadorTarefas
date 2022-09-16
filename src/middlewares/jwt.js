@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const UsuarioRepository = require('../repositories/impl/UsuarioRepMongoDB');
 
 //define a lista de rotas publicas da aplicação
 const rotasPublicas  = [
@@ -14,12 +15,7 @@ const rotasPublicas  = [
     {
         url: '/api/usuario',
         metodo: 'POST'
-    },
-    {
-        url: '/favicon.ico',
-        metodo: 'GET'
     }
-
 ];
 
 module.exports = (req, res, next) => {

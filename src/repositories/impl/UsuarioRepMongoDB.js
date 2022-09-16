@@ -2,6 +2,16 @@ const UsuarioRepository = require('../UsuarioRepository');
 //importando model do usuario
 const Usuario = require('../../models/Usuario');
 
+//utilitário para a classe do repositório que faz a filtragem dos dados do usuário do BD
+//e transforma esses dados no formato que a aplicação espera
+const dadosFormatados = (usuarioBD) => {
+    return {
+        id: usuarioBD._doc._id,
+        nome: usuarioBD._doc.nome,
+        email: usuarioBD._doc.email
+    }
+}
+
 class UsuarioRepMongoDB {
     //repositorio recebe os dados do usuario e passa pro modelo
     static cadastrar(dadosUsuario) {
@@ -14,15 +24,22 @@ class UsuarioRepMongoDB {
 
         //verifica lista de usuarios
         if (usuarios) {
-            //caso usuario esteja cadastrado retorna um objeto com os dados do usuario
-            usuarios = usuarios.map(u => ({
-                id: u._doc._id,
-                nome: u._doc.nome,
-                email: u._doc.email
-            }))
+            //caso usuario esteja cadastrado retorna um objeto com os dados do usuario formatados
+            usuarios = usuarios.map(u => dadosFormatados(u));
         }
 
         return usuarios;
+    }
+
+    static async filtrarPorId(idUsuario) {
+        //busca um usuario no BD pelo id passado por parâmetro
+        const usuario = await Usuario.findById(idUsuario);
+        //caso o id seja encontrado, retorna um objeto com os dados formatados do usuario
+        if (usuario) {
+            return dadosFormatados(usuario)
+        }
+        //caso usuario não seja encontrado retorna null 
+        return null;
     }
 }
 
