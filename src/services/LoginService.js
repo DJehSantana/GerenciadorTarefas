@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
+const md5 = require('md5');
+const UsuarioRepository = require('../repositories/impl/UsuarioRepMongoDB');
 
 class LoginService{
 //TODO: verificar se o usuário está cadastrado no banco de dados
 
     //criando o método para realizar o login, deve ser público para poder ser usado em vários lugares
-    logar (login, senha) {
+    async logar (login, senha) {
         const usuario = {
             id: 1,
             nome: 'usuarioTeste',

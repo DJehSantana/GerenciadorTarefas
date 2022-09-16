@@ -21,6 +21,17 @@ class UsuarioService{
             //verifica se as constantes receberam true, do contrário acrescenta o erro a listaErros            
             if (!temArroba || !temPonto) {
                 listaErros.push('Email do usuário inválido!')
+            } else {
+                //filtra no BD se o email já está cadastrado
+                const emailDuplicado = await UsuarioRepository.filtrar({
+                    //envia o email como parâmetro para o método filtrar
+                    email: dadosUsuario.email
+                });
+
+                if (emailDuplicado && emailDuplicado.length) {
+                    listaErros.push('Esse email já foi cadastrado!')
+                }
+
             }
 
         }
