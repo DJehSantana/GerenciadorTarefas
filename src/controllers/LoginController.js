@@ -29,6 +29,7 @@ class LoginController extends HttpController {
             //instanciando um objeto da classe LoginService
             const service = new LoginService();
 
+            //objeto da classe LoginService chama o método logar
             //método logar espera um login e uma senha como parametros
             const resultado = await service.logar(body.login, body.senha);
 

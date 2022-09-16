@@ -9,9 +9,20 @@ class UsuarioRepMongoDB {
         return Usuario.create(dadosUsuario);
     }
     // define o método filtrar com um parâmetro default sendo um objeto com valor vazio
-    static filtrar(filtro = {}) {
-        return Usuario.find(filtro);
+    static async filtrar(filtro = {}) {
+        let usuarios = await Usuario.find(filtro);
 
+        //verifica lista de usuarios
+        if (usuarios) {
+            //caso usuario esteja cadastrado retorna um objeto com os dados do usuario
+            usuarios = usuarios.map(u => ({
+                id: u._doc._id,
+                nome: u._doc.nome,
+                email: u._doc.email
+            }))
+        }
+
+        return usuarios;
     }
 }
 
