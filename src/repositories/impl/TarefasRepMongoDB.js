@@ -26,6 +26,7 @@ class TarefasRepMongoDB extends TarefaRepository {
         conclusao,
         idUsuario        
     }) {
+        //atribui o idUsuario da tarefa recebido por parametro a constante query
         const query = {
             idUsuario
         }
@@ -44,6 +45,12 @@ class TarefasRepMongoDB extends TarefaRepository {
         if (conclusao && conclusao.trim()) {
             //string recebida como parametro sera convertida para data
             const dataConclusao = new Date(conclusao);
+            if (!query.dataPrevistaConclusao) {
+                query.dataPrevistaConclusao = {};
+            }
+            //filtra tarefas cuja data de conclusao é menor ou ingual a data prevista de conclusao
+            query.dataPrevistaConclusao.$lte = dataConclusao;
+
         }
     }
 
