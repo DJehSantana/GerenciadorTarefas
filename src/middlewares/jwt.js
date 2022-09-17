@@ -15,7 +15,7 @@ const rotasPublicas  = [
     {
         url: '/api/usuario',
         metodo: 'POST'
-    }
+    }   
 ];
 
 module.exports = (req, res, next) => {

@@ -34,10 +34,10 @@ class TarefasRepMongoDB {
     //filtra tarefa por usuario periodo e status
     static async filtrarTarefas({
         //parametros virão como String
+        idUsuario,        
         inicio,
-        conclusao,
         status,
-        idUsuario        
+        conclusao
     }) {
         //atribui o idUsuario da tarefa recebido por parametro a constante query
         const query = {

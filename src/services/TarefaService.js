@@ -7,7 +7,7 @@ class TarefaService {
     }
 
     //método responsável por fazer o filtro das tarefas no banco de dados
-    async filtrar(filtro = {}) {
+    async filtrar(filtro) {
         filtro.idUsuario = this.idUsuario;
         return TarefaRepository.filtrarTarefas(filtro)
     }
@@ -25,7 +25,7 @@ class TarefaService {
 
             if (!dadosTarefa.dataPrevistaConclusao || !dadosTarefa.dataPrevistaConclusao.trim()) {
                 erros.push('Data prevista de conclusao é obrigatoria');
-            }
+            }            
         }
 
         const resposta = {erros: null, tarefa: null}

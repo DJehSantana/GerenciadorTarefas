@@ -1,5 +1,6 @@
 const HttpController = require('./HttpController');
 const TarefaService = require('../services/TarefaService');
+const UsuarioRepository = require('../repositories/impl/UsuarioRepMongoDB');
 
 class TarefaController extends HttpController {
     configurarRotas(baseUrl) {
@@ -9,9 +10,13 @@ class TarefaController extends HttpController {
         this.express.post(`${baseUrl}/tarefa`, this.cadastrar.bind(this));
     }
 
+    
     async listar(req, res) {
         
         try {
+
+            //const idUsuario = UsuarioRepository.dadosFormatados.id;
+             
             //instancia da classe TarefaService pega o Id do usuário autenticado como parametro
             const servico = new TarefaService(req.usuario.id);
 
