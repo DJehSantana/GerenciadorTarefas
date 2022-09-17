@@ -63,7 +63,9 @@ module.exports = (req, res, next) => {
         }
         req.logger.debug('token JWT decodificado com sucesso!', `idUsuario = ${decoded._id}`);
 
+        //Busca se o usuário está no banco de dados através do método filtrarPorId, enviando o id como parâmetro
         const usuario = await UsuarioRepository.filtrarPorId(decoded._id);
+        //Se não encontrar o id do usuário  no BD, retorna erro status 401
         if (!usuario) {
             req.logger.error('Usuário não encontrado no BD', `id= ${decoded._id}`);
             return res.status(401).json({
