@@ -1,4 +1,5 @@
-const HttpController = require("./HttpController");
+const HttpController = require('./HttpController');
+const TarefaService = require('../services/TarefaService');
 
 class TarefaController extends HttpController {
     configurarRotas(baseUrl) {
@@ -7,6 +8,8 @@ class TarefaController extends HttpController {
     }
 
     async listar(req, res) {
+        //instancia da classe TarefaService pega o Id do usuário autenticado como parametro
+        const service = new TarefaService(req.usuario.id);
         res.json([]);
     }
 }
