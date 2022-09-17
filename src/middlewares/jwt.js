@@ -53,7 +53,7 @@ module.exports = (req, res, next) => {
     // verificar se o token é válido
     //a função callback recebe como parametro um erro (err) caso o token não puder ser decodificado
     //ou o token decodificado (decoded) caso a decodificação seja realizada com sucesso
-    jwt.verify(token, process.env.CHAVE_SECRETA_JWT, (err, decoded) => {
+    jwt.verify(token, process.env.CHAVE_SECRETA_JWT, async (err, decoded) => {
         if(err) {
             req.logger.error('erro ao decodificar o token JWT', `token = ${token}`);
             return res.status(401).json({
@@ -63,9 +63,13 @@ module.exports = (req, res, next) => {
         }
         req.logger.debug('token JWT decodificado com sucesso!', `idUsuario = ${decoded._id}`);
 
-        //TODO: carregar o usuário a partir do banco de dados
-        const usuario = {
-            id: decoded._id
+        const usuario = await UsuarioRepository.filtrarPorId(decoded._id);
+        if (!usuario) {
+            req.logger.error('Usuário não encontrado no BD', `id= ${decoded._id}`);
+            return res.status(401).json({
+                status: 401,
+                erro: 'Acesso negado! usuário não encontrado!'
+            })
         }
 
         //atribui a propriedade usuario da requisição quem é o usuário autenticado
