@@ -3,13 +3,14 @@ const express =  require('express');
 //importando dependencia e arquivo swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger/swagger.json');
-//importando classe Login Controller
+//importando Controllers
 const LoginController = require('./controllers/LoginController');
 const UsuarioController = require('./controllers/UsuarioController');
+const TarefaController = require('./controllers/TarefaController');
+//importando enums
 const appConstantes = require('./enums/appConstantes');
 //importando helper de conexão
 const MongoDbHelper = require('./helpers/MongoDbHelper');
-
 //importando o logger
 const logger = require('./middlewares/logger');
 const jwt = require('./middlewares/jwt');
@@ -67,7 +68,8 @@ class App {
             //passando a instancia do express como parâmetro para o 
             //objeto da classe LoginController(a msma será usada no constructor)
             new LoginController(this.express),
-            new UsuarioController(this.express)
+            new UsuarioController(this.express),
+            new TarefaController(this.express)
         ]
     }
 
