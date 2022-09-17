@@ -41,7 +41,7 @@ class TarefasRepMongoDB {
     }) {
         //atribui o idUsuario da tarefa recebido por parametro a constante query
         const query = {
-            idUsuario
+            idUsuario 
         }
 
         // caso o parametro inicio que corresponde a data de inicio da tarefa não estiver vazio        
