@@ -1,5 +1,17 @@
 const Tarefa = require('../../models/Tarefa');
 const TarefaRepository = require('../TarefaRepository');
+//importando enum dos status tarefa
+const statusTarefa = require('../../enums/statusTarefa');
+
+//formata os dados da Tarefa que vem do BD
+const tarefaFormatada = (tarefaBD) => {
+    return {
+        id: tarefaBD._doc._id,
+        nome: tarefaBD._doc.nome,
+        dataPrevistaConclusao: tarefaBD._doc.dataPrevistaConclusao,
+        dataConclusao: tarefaBD._doc.dataConclusao
+    }
+}
 
 class TarefasRepMongoDB extends TarefaRepository {
     //implementando métodos da classe TarefaRepository
@@ -24,6 +36,7 @@ class TarefasRepMongoDB extends TarefaRepository {
         //parametros virão como String
         inicio,
         conclusao,
+        status,
         idUsuario        
     }) {
         //atribui o idUsuario da tarefa recebido por parametro a constante query
@@ -52,6 +65,30 @@ class TarefasRepMongoDB extends TarefaRepository {
             query.dataPrevistaConclusao.$lte = dataConclusao;
 
         }
+
+        if (status && status.trim()){
+            //converte status da tarefa recebido por parametro em numero inteiro
+            const statusInt = parseInt(status);
+            //verifica qual o status da tarefa
+            if (statusInt === statusTarefa.PENDENTE) {
+                query.dataConclusao = null;
+            } else if (statusInt === statusTarefa.CONCLUIDO) {
+                // filtra as tarefas que a data de conclusao é diferente de null ($ne !=)
+                query.dataConclusao = {
+                    $ne: null
+                }
+            }
+        }
+
+        const tarefas = await  Tarefa.find(query);
+
+        if (tarefas) {
+           //pega cada tarefa que veio do BD e retorna as tarefas formatadas de acordo ao modelo esperado
+           return tarefas.map(t => tarefaFormatada(t));
+
+        }
+
+        return [];
     }
 
 }

@@ -7,9 +7,9 @@ class TarefaService {
     }
 
     //método responsável por fazer o filtro das tarefas no banco de dados
-    async filtrar() {
-
-
+    async filtrar(filtro = {}) {
+        filtro.idUsuario = this.idUsuario;
+        return TarefaRepository.filtrarTarefas(filtro)
     }
 }
 

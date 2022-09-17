@@ -17,7 +17,7 @@ const TarefaSchema = new Schema({
     },
     dataConclusao: {
         type: Date,
-        required: true
+        required: false
     }
 });
 
