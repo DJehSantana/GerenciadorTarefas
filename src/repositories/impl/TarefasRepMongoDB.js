@@ -13,7 +13,7 @@ const tarefaFormatada = (tarefaBD) => {
     }
 }
 
-class TarefasRepMongoDB extends TarefaRepository {
+class TarefasRepMongoDB {
     //implementando métodos da classe TarefaRepository
 
     //recebe os dados da tarefa e realiza o cadastro
@@ -32,7 +32,7 @@ class TarefasRepMongoDB extends TarefaRepository {
     }
 
     //filtra tarefa por usuario periodo e status
-    static filtrarTarefas({
+    static async filtrarTarefas({
         //parametros virão como String
         inicio,
         conclusao,
