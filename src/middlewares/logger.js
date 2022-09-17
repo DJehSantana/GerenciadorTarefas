@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     const logger = {
         // exibe mensagens de erro
         error: (mensagem, ...parametrosExtras) => {
-            console.error(`[ERROR] traceId = ${traceID}, mensagem = ${mensagem}`, ...parametrosExtras);
+            console.error(`[ERROR] traceId = ${traceId}, mensagem = ${mensagem}`, ...parametrosExtras);
         },
         // exibe mensagens de depuração
         debug: (mensagem, ...parametrosExtras) => {
