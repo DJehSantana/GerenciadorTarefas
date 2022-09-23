@@ -83,9 +83,9 @@ class TarefasRepMongoDB {
         const tarefas = await  Tarefa.find(query);
 
         if (tarefas) {
-           //pega cada tarefa que veio do BD e retorna as tarefas formatadas de acordo ao modelo esperado
+           //map - pega cada tarefa que veio do BD e 
+           //retorna as tarefas formatadas de acordo ao modelo esperado
            return tarefas.map(t => tarefaFormatada(t));
-
         }
 
         return [];

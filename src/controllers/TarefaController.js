@@ -8,6 +8,9 @@ class TarefaController extends HttpController {
         this.express.get(`${baseUrl}/tarefa`, this.listar.bind(this));
         //cadastrar tarefas com post
         this.express.post(`${baseUrl}/tarefa`, this.cadastrar.bind(this));
+        //editar tarefa específica com o PUT
+        //o ':' significa que o valor do parametro será variável
+        this.express.put(`${baseUrl}/tarefa/:id`, this.editar.bind(this));
     }
 
     
@@ -40,17 +43,17 @@ class TarefaController extends HttpController {
             const servico = new TarefaService(req.usuario.id);
             //passar responsabilidade de validação dos dados para dentro do serviço
             const resultado = await servico.cadastrar(req.body);
-
+            //verifica se retornou lista de erros
             if(resultado.erros) {
                 return res.status(400).json({
                     status: 400,
                     erro: resultado.erros
-                })
+                });
             }
 
             return res.json({
                 msg: 'Tarefa cadastrada com sucesso'
-            })
+            });
 
             
         } catch (e) {
@@ -58,6 +61,33 @@ class TarefaController extends HttpController {
             res.status(500).json({
                 status: 500,
                 erro: 'Erro ao filtrar tarefa, tente novamente mais tarde!'
+            });
+        }
+    }
+
+    async editar (req, res) {
+        try {
+            const servico = new TarefaService(req.usuario.id);
+            //primeiro parametro passado será o id do params da url da requisicao
+            //o segundo será o corpo da requisição
+            const resposta = await servico.editar(req.params.id, req.body);
+
+            if (resposta.erros) {
+                return res.status(400).json({
+                    satatus: 400,
+                    erro: resposta.erros
+                });
+            }
+
+            res.json({
+                msg:  'Tarefa atualizada com sucesso!'
+            });
+            
+        } catch (e) {
+            req.logger.error('erro ao processar requisicao de edição de tarefa', 'erro= ' + e.message);
+            res.status(500).json({
+                status: 500,
+                erro: 'Erro ao editar tarefa, tente novamente mais tarde!'
             });
         }
     }
