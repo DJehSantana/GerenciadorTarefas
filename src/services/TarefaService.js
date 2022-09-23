@@ -57,6 +57,14 @@ class TarefaService {
 
         return resposta;
     }
+
+    async editar (idTarefa, dadosTarefa) {
+        const erros = [];
+        //validando se foi passado o id da tarefa a ser editada
+        if (!idTarefa) {
+            erros.push('ID da tarefa é obrigatório!')
+        } 
+    }
 }
 
 module.exports = TarefaService;
