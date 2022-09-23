@@ -76,10 +76,10 @@ module.exports = (req, res, next) => {
 
         //atribui a propriedade usuario da requisição quem é o usuário autenticado
         req.usuario = usuario;
+        next();
 
     });
 
 
 
-    next();
 }

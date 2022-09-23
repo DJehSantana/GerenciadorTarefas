@@ -26,6 +26,7 @@ const UsuarioSchema = new Schema ({
         type: String,
         required: [true, erroRequired]
     }
+    
 })
 
 //.pre - adicionando um evento antes de determinada ação

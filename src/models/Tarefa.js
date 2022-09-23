@@ -23,7 +23,7 @@ const TarefaSchema = new Schema({
 
 //criando o model da tarefa no BD, a collection receberá o nome de tarefas e seguirá o modelo do TarefaSchema
 const Tarefa = mongoose.model('tarefas', TarefaSchema);
-
+//exportando o model tarefa já ligado com o mongodb
 module.exports = Tarefa;
 
 

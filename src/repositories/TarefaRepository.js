@@ -18,4 +18,6 @@ module.exports = (Implementacao) => {
    if (!Implementacao.filtrarTarefas) {
         throw new Error(`A classe ${Implementacao} não implementou o método filtrarTarefas`);
     }
+
+    return Implementacao;
 }
