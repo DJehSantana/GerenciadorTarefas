@@ -91,6 +91,18 @@ class TarefasRepMongoDB {
         return [];
     }
 
+    //busca tarefas por Id
+    static async buscarPorId(idTarefa) {
+        //busca um usuario no BD pelo id passado por parâmetro
+        const tarefaBD = await Tarefa.findById(idTarefa);
+        //caso o id seja encontrado, retorna um objeto com os dados formatados da tarefa
+        if (tarefaBD) {
+            return tarefaFormatada(tarefaBD);
+        }
+        //caso usuario não seja encontrado retorna null 
+        return null;
+    }
+
 }
 
 module.exports = TarefaRepository(TarefasRepMongoDB);

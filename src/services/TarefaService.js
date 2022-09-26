@@ -63,7 +63,42 @@ class TarefaService {
         //validando se foi passado o id da tarefa a ser editada
         if (!idTarefa) {
             erros.push('ID da tarefa é obrigatório!')
-        } 
+        } else {
+            tarefaBD = await TarefaRepository.buscarPorId(idTarefa);
+            //se a tarefa não existir no banco ou pertencer a outro usuário, retorna erro a lista
+            if (!tarefaBD || !tarefaBD.idUsuario !== this.idUsuario) {
+                erros.push('Tarefa não foi encontrada!');
+            }
+        }
+        //se tiver erros, retorna a lista
+        if (erros.length) {
+            return {
+                erros
+            }
+        }
+        
+        const dadosAtualizar = {};
+
+        //verificando dados que serão atualizados
+        //inclui no dados atualizar todos os dados passados ao método
+        if (dadosTarefa.nome && dadosTarefa.nome.trim()) {
+            dadosAtualizar.nome = dadosTarefa.nome;
+        }
+
+        if(dadosTarefa.dataPrevistaConclusao && 
+            dadosTarefa.dataPrevistaConclusao.trim()) {
+                dadosAtualizar.dataPrevistaConclusao = new Date(dadosTarefa.dataPrevistaConclusao);
+        }
+
+        if (dadosTarefa.dataConclusao && dadosTarefa.dataConclusao.trim()) {
+            dadosAtualizar.dataConclusao = new Date(dadosTarefa.dataConclusao);
+        }
+
+        //chamando o repositório passando como parametro os dados a ser editados
+        const tarefaEditada = await TarefaRepository.editar(idTarefa, dadosAtualizar);
+
+        //retorna a tarefa editada para o controller
+        return tarefaEditada;
     }
 }
 
