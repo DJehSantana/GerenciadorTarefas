@@ -74,7 +74,7 @@ class TarefaController extends HttpController {
 
             if (resposta.erros) {
                 return res.status(400).json({
-                    satatus: 400,
+                    status: 400,
                     erro: resposta.erros
                 });
             }

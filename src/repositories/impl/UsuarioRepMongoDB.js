@@ -6,7 +6,7 @@ const Usuario = require('../../models/Usuario');
 //e transforma esses dados no formato que a aplicação espera
 const dadosFormatados = (usuarioBD) => {
     return {
-        id: usuarioBD._doc._id,
+        id: usuarioBD._doc._id.toString(),
         nome: usuarioBD._doc.nome,
         email: usuarioBD._doc.email
     }

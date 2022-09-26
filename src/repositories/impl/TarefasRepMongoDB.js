@@ -9,7 +9,8 @@ const tarefaFormatada = (tarefaBD) => {
         id: tarefaBD._doc._id,
         nome: tarefaBD._doc.nome,
         dataPrevistaConclusao: tarefaBD._doc.dataPrevistaConclusao,
-        dataConclusao: tarefaBD._doc.dataConclusao
+        dataConclusao: tarefaBD._doc.dataConclusao,
+        idUsuario: tarefaBD._doc.idUsuario
     }
 }
 
