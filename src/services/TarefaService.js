@@ -69,16 +69,15 @@ class TarefaService {
             //se a tarefa não existir no banco ou pertencer a outro usuário, retorna erro a lista
             if (!tarefaBD || tarefaBD.idUsuario !== this.idUsuario) {
                 erros.push('Tarefa não foi encontrada!');
-            }
-
-            //se tiver erros, retorna a lista
-            if (erros.length) {
-                return {
-                    erros
-                }
-            }
+            }            
         }
 
+        //se tiver erros, retorna a lista
+        if (erros.length) {
+            return {
+                erros
+            }
+        }
 
         const dadosAtualizar = {};
 
@@ -103,6 +102,25 @@ class TarefaService {
         //retorna a tarefa editada para o controller
         
         return tarefaEditada;
+    }
+
+    async deletar (idTarefa) {
+        const erros = [];
+
+        if (!idTarefa) {
+            erros.push('Id da tarefa é obrigatório');
+        } else {
+            const tarefaBD = await TarefaRepository.buscarPorId(idTarefa);
+            if (!tarefaBD || tarefaBD.idUsuario !== this.idUsuario) {
+                erros.push('Tarefa não foi encontrada!');
+            }
+        }
+
+        if (erros.length) {
+            return{
+                erros
+            }
+        }
     }
 }
 
