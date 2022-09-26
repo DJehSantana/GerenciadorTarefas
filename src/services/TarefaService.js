@@ -106,21 +106,27 @@ class TarefaService {
 
     async deletar (idTarefa) {
         const erros = [];
-
+        //validando se foi passado id da Tarefa
         if (!idTarefa) {
             erros.push('Id da tarefa é obrigatório');
         } else {
             const tarefaBD = await TarefaRepository.buscarPorId(idTarefa);
+            //validando se retornou objeto tarefaBD do banco de dados e se o id do usuario esta correto
             if (!tarefaBD || tarefaBD.idUsuario !== this.idUsuario) {
                 erros.push('Tarefa não foi encontrada!');
             }
         }
-
-        if (erros.length) {
-            return{
-                erros
-            }
+        // declarando objeto resposta com propriedade erros vazia por padrão
+        const resposta = {erros: null}
+        //caso tenha erros de validação, atribui a propriedade erro do objeto resposta
+        if (erros.length) {            
+            resposta.erros = erros;            
+        } else {
+        //caso não tenha erros chama o método que vai realizar a deleção da tarefa, passando o id como parâmetro
+            await TarefaRepository.deletar(idTarefa);
         }
+
+        return resposta;
     }
 }
 
