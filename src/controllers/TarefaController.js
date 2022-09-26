@@ -11,6 +11,8 @@ class TarefaController extends HttpController {
         //editar tarefa específica com o PUT
         //o ':' significa que o valor do parametro será variável
         this.express.put(`${baseUrl}/tarefa/:id`, this.editar.bind(this));
+        //deletar tarefas
+        this.express.delete(`${baseUrl}/tarefa/:id`, this.deletar.bind(this));
     }
 
     
@@ -90,6 +92,31 @@ class TarefaController extends HttpController {
                 erro: 'Erro ao editar tarefa, tente novamente mais tarde!'
             });
         }
+    }
+
+    async deletar (req, res) {
+       try {
+            const servico = new TarefaService(req.usuario.id);
+            const resposta = await servico.deletar(req.params.id);
+
+            if (resposta.erros) {
+                return res.status(400).json({
+                    status: 400,
+                    erro: resposta.erros
+                });
+            }
+
+            res.json({
+                msg: 'Tarefa deletada com sucesso!'
+            })
+
+       } catch (e) {
+        req.logger.error('erro ao processar requisicao de remoção de tarefa', 'erro= ' + e.message);
+        res.status(500).json({
+            status: 500,
+            erro: 'Erro ao deletar tarefa, tente novamente mais tarde!'
+        });
+       } 
     }
 }
 
