@@ -15,13 +15,13 @@ class TarefaController extends HttpController {
         this.express.delete(`${baseUrl}/tarefa/:id`, this.deletar.bind(this));
     }
 
-    
+
     async listar(req, res) {
-        
+
         try {
 
             //const idUsuario = UsuarioRepository.dadosFormatados.id;
-             
+
             //instancia da classe TarefaService pega o Id do usuário autenticado como parametro
             const servico = new TarefaService(req.usuario.id);
 
@@ -30,7 +30,7 @@ class TarefaController extends HttpController {
             //o query é um objeto json com os parametros da string query
             const tarefas = await servico.filtrar(req.query);
             res.json(tarefas);
-            
+
         } catch (e) {
             req.logger.error('erro ao processar requisicao', 'erro= ' + e.message);
             res.status(500).json({
@@ -46,7 +46,7 @@ class TarefaController extends HttpController {
             //passar responsabilidade de validação dos dados para dentro do serviço
             const resultado = await servico.cadastrar(req.body);
             //verifica se retornou lista de erros
-            if(resultado.erros) {
+            if (resultado.erros) {
                 return res.status(400).json({
                     status: 400,
                     erro: resultado.erros
@@ -57,7 +57,7 @@ class TarefaController extends HttpController {
                 msg: 'Tarefa cadastrada com sucesso'
             });
 
-            
+
         } catch (e) {
             req.logger.error('erro ao processar requisicao de cadastro', 'erro= ' + e.message);
             res.status(500).json({
@@ -67,7 +67,7 @@ class TarefaController extends HttpController {
         }
     }
 
-    async editar (req, res) {
+    async editar(req, res) {
         try {
             const servico = new TarefaService(req.usuario.id);
             //primeiro parametro passado será o id do params da url da requisicao
@@ -82,9 +82,9 @@ class TarefaController extends HttpController {
             }
 
             res.json({
-                msg:  'Tarefa atualizada com sucesso!'
+                msg: 'Tarefa atualizada com sucesso!'
             });
-            
+
         } catch (e) {
             req.logger.error('erro ao processar requisicao de edição de tarefa', 'erro= ' + e.message);
             res.status(500).json({
@@ -94,8 +94,8 @@ class TarefaController extends HttpController {
         }
     }
 
-    async deletar (req, res) {
-       try {
+    async deletar(req, res) {
+        try {
             const servico = new TarefaService(req.usuario.id);
             const resposta = await servico.deletar(req.params.id);
 
@@ -110,13 +110,13 @@ class TarefaController extends HttpController {
                 msg: 'Tarefa deletada com sucesso!'
             })
 
-       } catch (e) {
-        req.logger.error('erro ao processar requisicao de remoção de tarefa', 'erro= ' + e.message);
-        res.status(500).json({
-            status: 500,
-            erro: 'Erro ao deletar tarefa, tente novamente mais tarde!'
-        });
-       } 
+        } catch (e) {
+            req.logger.error('erro ao processar requisicao de remoção de tarefa', 'erro= ' + e.message);
+            res.status(500).json({
+                status: 500,
+                erro: 'Erro ao deletar tarefa, tente novamente mais tarde!'
+            });
+        }
     }
 }
 

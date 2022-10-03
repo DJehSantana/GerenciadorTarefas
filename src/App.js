@@ -65,8 +65,8 @@ class App {
     //método responsável por carregar todos os controllers da aplicação
     #carregarControllers = () => {
         this.#controllers = [
-            //passando a instancia do express como parâmetro para o 
-            //objeto da classe LoginController(a msma será usada no constructor)
+            //passando a instancia do express como parâmetro para os objetos 
+            // das classes dos controllers (a msma será usada no constructor)
             new LoginController(this.express),
             new UsuarioController(this.express),
             new TarefaController(this.express)
