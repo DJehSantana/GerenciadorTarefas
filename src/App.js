@@ -11,9 +11,10 @@ const TarefaController = require('./controllers/TarefaController');
 const appConstantes = require('./enums/appConstantes');
 //importando helper de conexão
 const MongoDbHelper = require('./helpers/MongoDbHelper');
-//importando o logger
+//importando os middlewares
 const logger = require('./middlewares/logger');
 const jwt = require('./middlewares/jwt');
+const cors = require('./middlewares/cors');
 
 // Classe principal onde ficará nossa aplicação
 class App {
@@ -43,6 +44,9 @@ class App {
         //registrando os middlewares para fazer a conversão das requisições da API
         this.express.use(express.urlencoded({extended: true}));
         this.express.use(express.json());
+
+        //registra o middleware para habilitar requisições de outros domínios
+        this.express.use(cors);
 
         //registra o middleware do Jwt para fazer validação do acesso as rotas das requisições recebidas
         this.express.use(jwt);

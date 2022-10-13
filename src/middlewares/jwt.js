@@ -7,6 +7,10 @@ const rotasPublicas  = [
         url: '/api/login',
         metodo: 'POST'
     },
+    {
+        url: '/api/login',
+        metodo: 'OPTIONS'
+    },
     //rota do swagger
     {
         url: '/api/docs/',
@@ -79,7 +83,4 @@ module.exports = (req, res, next) => {
         next();
 
     });
-
-
-
 }
