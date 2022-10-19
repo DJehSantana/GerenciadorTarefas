@@ -1,6 +1,7 @@
 # Gerenciador Tarefas Node JS - API
 
  API desenvolvida durante curso de NodeJs da Devaria, com o objetivo de exercitar conhecimentos de Back-end em NodeJs.
+ 
  A API foi desenvolvida utilizando conceitos de Design Patterns, API Rest e métodos HTTP.
  
  Documentação da API feita em Swagger.
