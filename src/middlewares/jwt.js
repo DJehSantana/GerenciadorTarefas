@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
     const rotaPublica = rotasPublicas.find(rota => 
         rota.url === req.url && rota.metodo === req.method.toUpperCase());
 
-    if (rotaPublica) {
+    if (rotaPublica || req.method.toUpperCase() === 'OPTIONS') {
         // chama o método next pra continuar a chamada dos próximos middlewares,
         // o return bloqueia o fluxo do programa para que não siga para a autorização
         req.logger.info('rota publica, requisição liberada');
