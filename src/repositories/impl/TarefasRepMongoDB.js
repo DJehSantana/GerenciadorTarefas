@@ -62,7 +62,7 @@ class TarefasRepMongoDB {
             if (!query.dataPrevistaConclusao) {
                 query.dataPrevistaConclusao = {};
             }
-            //filtra tarefas cuja data de conclusao é menor ou ingual a data prevista de conclusao
+            //filtra tarefas cuja data de conclusao é menor ou igual a data prevista de conclusao
             query.dataPrevistaConclusao.$lte = dataConclusao;
 
         }
