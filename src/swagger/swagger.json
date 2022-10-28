@@ -193,6 +193,110 @@
 
         }
     },
+    "/tarefa/{id}": {
+        "put": {
+            "tags": [
+                "Tarefas"
+            ],
+            "summary": "Atualiza os dados de uma tarefa",
+            "security": [
+                {
+                    "authorization": []
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "name": "Content-Type",
+                    "in":"header",
+                    "type":"string",
+                    "value": "application/json",
+                    "description": "Content-Type"
+                },
+                {
+                    "name":"payload",
+                    "in":"body",
+                    "required":true,
+                    "schema": {
+                        "$ref":"#/definitions/TarefaAtualizacaoRequest"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "schema": {
+                        "$ref":"#/definitions/TarefaResponse200"
+                    }
+                },
+                "400": {
+                    "schema": {
+                        "$ref":"#/definitions/Response400"
+                    }
+                },
+                "401": {
+                    "schema": {
+                        "$ref":"#/definitions/ResponseErro401"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "$ref":"#/definitions/ResponseErro500"
+                    }
+                }
+            }
+        },
+        "delete": {
+            "tags": [
+                "Tarefas"
+            ],
+            "summary": "Remove uma tarefa do sistema",
+            "security": [
+                {
+                    "authorization": []
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in":"path",
+                    "required":true
+                },
+                {
+                    "name":"Content-Type",
+                    "in":"header",
+                    "type":"string",
+                    "value": "application/json",
+                    "description":"Content-Type"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "schema": {
+                        "$ref":"#/definitions/TarefaResponse200"
+                    }
+                },
+                "400": {
+                    "schema": {
+                        "$ref":"#/definitions/Response400"
+                    }
+                },
+                "401": {
+                    "schema": {
+                        "$ref":"#/definitions/ResponseErro401"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "$ref":"#/definitions/ResponseErro500"
+                    }
+                } 
+            }
+        }
+    },
     "definitions": {
         "LoginRequest":{
             "type": "object",
@@ -265,21 +369,123 @@
 
             }
         },
+        "TarefaCadastroRequest": {
+            "type":"object",
+            "properties": {
+                "nome": {
+                    "type":"string",
+                    "example": "Lavar o carro",
+                    "required":true
+                },
+                "dataPrevistaConclusao": {
+                    "type":"string",
+                    "format":"date",
+                    "example":"2022-08-02",
+                    "required":true
+                },
+                "dataConclusao": {
+                    "type":"string",
+                    "format": "date",
+                    "example":"2022-08-05"
+                }
+            }
+        },
+        "TarefaAtualizacaoRequest": {
+            "type":"object",
+            "properties": {
+                "nome": {
+                    "type":"string",
+                    "example": "Tirar o lixo"
+                },
+                "dataPrevistaConclusao": {
+                    "type":"string",
+                    "format":"date",
+                    "example":"2022-08-07"
+                },
+                "dataConclusao": {
+                    "type":"string",
+                    "format":"date",
+                    "example":"2022-12-07"
+                }
+            }
+        },
+        "TarefaListResponse": {
+            "type": "array",
+            "items": {
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type":"string",
+                        "example": "fd8si7yhfdg8hfod9ihjgdghd99"
+                    },
+                    "idUsuario": {
+                        "type":"string",
+                        "example":"fd8si7yhfdg8hfod9ihjgdghd99"
+                    },
+                    "nome": {
+                        "type":"string",
+                        "example":"Lavar o carro"
+                    },
+                    "dataPrevistaConclusao": {
+                        "type":"string",
+                        "format":"date",
+                        "example": "2022-02-02"
+                    },
+                    "dataConclusao": {
+                        "type":"string",
+                        "format":"date",
+                        "example":"2022-08-02"
+                    }
+                }
+            }
+        },
+        "TarefaResponse200": {
+            "type":"object",
+            "properties": {
+                "message": {
+                    "type":"string",
+                    "example": "Operação realizada com sucesso"
+                }
+            }
+        },
         "Response400": {
             "type": "object",
             "properties": {
                 "status": {
                     "type": "number",
-                    "example": "400"
+                    "example": 400
                 },
                 "erro": {
                     "type": "string",
                     "example": "Parâmetros de entrada inválidos"
                 }
             }
+        },
+        "ResponseErro401": {
+            "type":"object",
+            "properties": {
+                "status": {
+                    "type":"number",
+                    "example": 401
+                },
+                "erro": {
+                    "type": "string",
+                    "example": "Acesso negado"
+                }
+            }
+        },
+        "ResponseErro500": {
+            "type":"object",
+            "properties": {
+                "status": {
+                    "type":"number",
+                    "example": 500
+                },
+                "erro": {
+                    "type": "string",
+                    "example": "Erro ao processar a solicitação"
+                }
+            }
         }
     }
-
-
-
 }
