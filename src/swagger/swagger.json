@@ -5,16 +5,40 @@
         "title": "API Gerenciador de Tarefas"
     },
     "basePath": "/api",
+    "securityDefinitions": {
+        "authorization": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization"
+        }
+    },
     "consumes": [
         "application/json"
     ],
     "produces": [
         "application/json"
     ],
+    "tags": [
+        {
+            "name": "Autenticação",
+            "description": "Operações relacioanadas ao acesso do usuário da API"
+        },
+        {
+            "name": "Usuário",
+            "description": "Operações relacioanadas ao cadastro de usuários no sistema"
+        },
+        {
+            "name": "Tarefas",
+            "description": "Operações relacionadas a gestão das tarefas"
+        }
+    ],
     "paths": {
         "/login": {
             "post": {
-                "sumary": "Faz a autenticação do usuário e devolve um token de login",
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Faz a autenticação do usuário e devolve um token de login",
                 "parameters": [
                     {
                         "name": "payload",
@@ -25,7 +49,7 @@
                         }
                     }
                 ],
-                "response": {
+                "responses": {
                     "200": {
                         "schema": {
                             "$ref": "#/definitions/LoginResponse200"
@@ -42,7 +66,10 @@
         
         "/usuario": {
             "post": {
-                "sumary": "Faz o cadastro do usuário no sistema",
+                "tags": [
+                    "Usuário"
+                ],
+                "summary": "Faz o cadastro do usuário no sistema",
                 "parameters": [
                     {
                         "name": "payload",
@@ -53,7 +80,7 @@
                         }
                     }
                 ],
-                "response": {
+                "responses": {
                     "200": {
                         "schema": {
                             "$ref": "#/definitions/UsuarioCadastroResponse200"
@@ -67,6 +94,104 @@
                 }
             }
         }    
+    },
+    "/tarefa": {
+        "get": {
+            "tags": [
+                "Tarefas"
+            ],
+            "summary": "Obtém uma lista de tarefas",
+            "security": [
+                {
+                    "authorization": []
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "inicio",
+                    "in": "query",
+                    "type":"string",
+                    "format": "date",
+                    "example": "2022-02-02",
+                    "description": "Período de início do filtro sobre a data prevista de conclusão" 
+                },
+                {
+                    "name": "conclusao",
+                    "in": "query",
+                    "type":"string",
+                    "format":"date",
+                    "example":"2022-02-02",
+                    "description":"Período de conclusão do filtro sobre a data prevista de conclusão"
+                },
+                {
+                    "name": "status",
+                    "in":"query",
+                    "type": "integer",
+                    "description": "Status da tarefa, use 1 para filtrar tarefas em aberto e 2 para filtrar tarefas concluídas"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "schema": {
+                        "$ref":"#/definitions/TarefaListResponse"
+                    }
+                },
+                "401": {
+                    "schema": {
+                        "$ref": "#/definitions/ResponseErro401"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "$ref":"#/definitions/ResponseErro500"
+                    }
+                }
+            }
+        },
+        "post": {
+            "tags": [
+                "Tarefas"
+            ],
+            "summary":"Faz o cadastro de uma tarefa no sistema",
+            "security": [
+                {
+                    "authorization": []
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "payload",
+                    "in":"body",
+                    "required": true,
+                    "schema": {
+                        "$ref":"#/definitions/TarefaCadastroRequest"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "schema": {
+                        "$ref":"#/definitions/TarefaResponse200"
+                    }
+                },
+                "400": {
+                    "schema": {
+                        "$ref":"#/definitions/Response400"
+                    }
+                },
+                "401": {
+                    "schema": {
+                        "$ref":"#/definitions/ResponseErro401"
+                    }
+                },
+                "500": {
+                    "schema": {
+                        "$ref":"#/definitions/ResponseErro500"
+                    }
+                }
+            }
+
+        }
     },
     "definitions": {
         "LoginRequest":{
