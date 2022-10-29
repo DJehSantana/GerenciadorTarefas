@@ -29,6 +29,7 @@ class TarefaController extends HttpController {
             //o método listar vai receber como parametro o query
             //o query é um objeto json com os parametros da string query
             const tarefas = await servico.filtrar(req.query);
+            console.log (req.query);
             res.json(tarefas);
 
         } catch (e) {

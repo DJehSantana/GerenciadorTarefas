@@ -27,7 +27,7 @@ class TarefasRepMongoDB {
         return Tarefa.findByIdAndUpdate(idTarefa, dadosTarefa);
     }
 
-    //recebe o id dad tarefa que será deletada do BD
+    //recebe o id da tarefa que será deletada do BD
     static deletar(idTarefa) {
         return Tarefa.findByIdAndDelete(idTarefa);
     }
@@ -35,10 +35,10 @@ class TarefasRepMongoDB {
     //filtra tarefa por usuario periodo e status
     static async filtrarTarefas({
         //parametros virão como String
-        idUsuario,        
         inicio,
+        conclusao,
         status,
-        conclusao
+        idUsuario        
     }) {
         //atribui o idUsuario da tarefa recebido por parametro a constante query
         const query = {
