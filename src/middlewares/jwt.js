@@ -7,13 +7,9 @@ const rotasPublicas  = [
         url: '/api/login',
         metodo: 'POST'
     },
-    {
-        url: '/api/login',
-        metodo: 'OPTIONS'
-    },
     //rota do swagger
     {
-        url: '/api/docs/',
+        url: '/api/docs*',
         metodo: 'GET'
     },
     {
@@ -27,8 +23,20 @@ module.exports = (req, res, next) => {
 
     //caso seja uma rota pública não precisa de autorização
     //método find, caso a rota e o metodo fizerem parte do array de rotas publicas, será atribuido a const
-    const rotaPublica = rotasPublicas.find(rota => 
-        rota.url === req.url && rota.metodo === req.method.toUpperCase());
+    const rotaPublica = rotasPublicas.find(rota => {
+        const rotaPublicaContemWidcard = rota.url.indexOf('*') !== -1;
+        const urlRrequisicaoContemParteDaRotaPublica = req.url.indexOf(rota.url.replace('*', '')) !== -1;
+
+        return ( // os parentesis definem a prioridade de verificação das condições
+            // verifica se a rota da requisição é identica
+            rota.url === req.url
+            || ( // ou a rota publica contem um '*' e a rota da requisição possui como parte da url a rota publica
+                rotaPublicaContemWidcard
+                && urlRrequisicaoContemParteDaRotaPublica
+            )
+        )
+        && (rota.metodo === req.method.toUpperCase())
+    });
 
     if (rotaPublica || req.method.toUpperCase() === 'OPTIONS') {
         // chama o método next pra continuar a chamada dos próximos middlewares,
