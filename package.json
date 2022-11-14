@@ -4,7 +4,8 @@
   "description": "Projeto de gerenciador de tarefas. Projeto desenvolvido com objetivo de exercitar conhecimentos de Front-End (HTML, CSS e JS) e back-end (Node, API e BD)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
