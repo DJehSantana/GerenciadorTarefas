@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Projeto de gerenciador de tarefas. Projeto desenvolvido com objetivo de exercitar conhecimentos de Front-End (HTML, CSS e JS) e back-end (Node, API e BD)",
   "main": "index.js",
+  "engines": {
+    "node": "16.15.1"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
