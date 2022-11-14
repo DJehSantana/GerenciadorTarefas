@@ -7,6 +7,10 @@ const rotasPublicas  = [
         url: '/api/login',
         metodo: 'POST'
     },
+    {
+        url: '/*',
+        metodo: 'GET'
+    },
     //rota do swagger
     {
         url: '/api/docs*',
