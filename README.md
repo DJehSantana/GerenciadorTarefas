@@ -24,8 +24,10 @@
  1. Rota principal: /api
  1. Rota login: /api/login
  1. Rota usuario cadastro: /api/usuario
- 1. Rota usuario edição, busca e deleção: /api/usuario/:id
  1. Rota tarefa: /api/tarefa
+ 1. Rota tarefa edição e deleção: /api/tarefa/:id
  1. Rota documentação: /api/docs
  
  ### Status: Em produção
+
+ ### Hospedagem: Heroku 
