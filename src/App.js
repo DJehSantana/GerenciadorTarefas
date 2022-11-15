@@ -10,7 +10,7 @@ const TarefaController = require('./controllers/TarefaController');
 //importando enums
 const appConstantes = require('./enums/appConstantes');
 //importando helper de conexão
-const MongoDbHelper = require('./helpers/MongoDbHelper');
+const MongoDBHelper = require('./helpers/MongoDBHelper');
 //importando os middlewares
 const logger = require('./middlewares/logger');
 const jwt = require('./middlewares/jwt');
@@ -63,7 +63,7 @@ class App {
     //método responsável por configurar o Bd
     #configurarBD = () => {
         //chamando o método estático da classe helper
-        MongoDbHelper.conectar();
+        MongoDBHelper.conectar();
     }
 
     //método responsável por carregar todos os controllers da aplicação

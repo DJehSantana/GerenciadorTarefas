@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-class MongoDbHelper{
+class MongoDBHelper{
     //método estático que faz a conexão com o mongoDb
     //como o método é estático não é necessário instanciar um objeto para usar
     static conectar() {
@@ -24,4 +24,4 @@ class MongoDbHelper{
 
 }
 
-module.exports = MongoDbHelper;
+module.exports = MongoDBHelper;
