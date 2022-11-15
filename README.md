@@ -28,4 +28,4 @@
  1. Rota tarefa: /api/tarefa
  1. Rota documentação: /api/docs
  
- ### Status: Em desenvolvimento
+ ### Status: Em produção
