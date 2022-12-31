@@ -23,11 +23,9 @@
  
  1. Rota principal: /api
  1. Rota login: /api/login
- 1. Rota usuario cadastro: /api/usuario
- 1. Rota tarefa: /api/tarefa
- 1. Rota tarefa edição e deleção: /api/tarefa/:id
- 1. Rota documentação: /api/docs
+ 1. Rota usuario cadastro: /api/usuario (pública)
+ 1. Rota tarefa: /api/tarefa (privada)
+ 1. Rota tarefa edição e deleção: /api/tarefa/:id (privada)
+ 1. Rota documentação: /api/docs (pública)
  
- ### Status: Em produção
-
- **Hospedagem: [Heroku](https://gerenciador-tarefas-api.herokuapp.com/)**
+ **Hospedagem: [Render](https://gerenciador-tarefas-api.onrender.com/)**
